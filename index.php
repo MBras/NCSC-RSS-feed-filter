@@ -20,12 +20,17 @@
         $link = $data->getElementsByTagName("link")->item(0)->nodeValue;
         $pubdate = $data->getElementsByTagName("pubDate")->item(0)->nodeValue;
 
-        preg_match('/(\S*) \[(.*?)\] \[(\S)\/(\S)\] .* verholpen in (.*)/', $title, $matches);
+        // parse title to get all relevant info for the filter and to create a shorter title
+        preg_match('/(\S*) \[(.*?)\] \[(\S)\/(\S)\] (.*)/', $title, $matches);
 
-        if ($matches[2] == "1.00" && $matches[4] == "H" && ($matches[3] == "M" || $matches[3] == "H")) {
-            $title = $matches[5] . " [" . $matches[3] . "/" . $matches[4] . "] " . $matches[1] . " [" . $matches[2] . "]";
+        $chance = $matches[3];
+        $impact = $matches[4];
+        $ver    = $matches[2];
+
+        // perform filter
+        if ($ver == "1.00" && $impact == "H" && ($chance == "M" || $chance == "H")) {
             echo "<item>
-                <title>$title</title>
+                <title>$matches[5] [$chance/$impact] $matches[1] [$ver]</title>
                 <link>$link</link>
                 <pubdate>$pubdate</pubdate>
                 </item>";
