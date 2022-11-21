@@ -19,6 +19,7 @@
         $title = $data->getElementsByTagName("title")->item(0)->nodeValue;
         $link = $data->getElementsByTagName("link")->item(0)->nodeValue;
         $pubdate = $data->getElementsByTagName("pubDate")->item(0)->nodeValue;
+        $description = $data->getElementsByTagName("description")->item(0)->nodeValue;
 
         // parse title to get all relevant info for the filter and to create a shorter title
         preg_match('/(\S*) \[(.*?)\] \[(\S)\/(\S)\] (.*)/', $title, $matches);
@@ -33,6 +34,7 @@
                 <title>$matches[5] [$chance/$impact] $matches[1] [$ver]</title>
                 <link>$link</link>
                 <pubdate>$pubdate</pubdate>
+                <description>$description</description>
                 </item>";
         }
      }
